@@ -1,0 +1,8 @@
+# The prefix for the bot
+prefix: "t!"
+# Mongo connection URI
+mongoURI: "mongodb://localhost:27017/"
+# Mongo database name
+database: "FTNL"
+# Prometheus exporter http server host:port
+prometheusHttpServer: "127.0.0.1:1234"

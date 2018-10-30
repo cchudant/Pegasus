@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="io.prometheus.client.log4j2">
+  <Properties>
+    <Property name="filename">logs.log</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="File" fileName="${filename}">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <Prometheus name="Prometheus"/>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.mongodb.driver" level="info"/>
+    <Logger name="net.dv8tion.jda" level="info"/>
+    <Logger name="com.sedmelluq.discord.lavaplayer" level="info"/>
+    <Root level="debug">
+      <AppenderRef level="info" ref="Console"/>
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="Prometheus"/>
+    </Root>
+  </Loggers>
+</Configuration>

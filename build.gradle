@@ -1,0 +1,52 @@
+/*
+ * FTNL build.gradle file
+ */
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+archivesBaseName = 'FTNL'
+group = 'fr.ftnl'
+version = 1.0
+sourceCompatibility = 1.8
+
+mainClassName = 'fr.ftnl.bootstrap.Bootstrap'
+
+repositories {
+  maven {
+    name = 'SnakeYAML repository'
+    url = 'http://oss.sonatype.org/content/groups/public/'
+  }
+  mavenCentral()
+  jcenter()
+}
+
+task fatjar(type: Jar) {
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+  from {
+    configurations
+      .compile
+      .findAll { !it.name.endsWith('pom') }
+      .collect { it.isDirectory() ? it : zipTree(it) }
+  }
+  with jar
+}
+
+dependencies {
+  compile 'org.yaml:snakeyaml:1.24-SNAPSHOT'
+  compile 'info.picocli:picocli:3.7.0'
+  compile 'net.dv8tion:JDA:3.8.1_437'
+  compile 'org.apache.logging.log4j:log4j-api:2.11.1'
+  compile 'org.apache.logging.log4j:log4j-core:2.11.1'
+  compile 'org.apache.logging.log4j:log4j-slf4j18-impl:2.11.1'
+  compile 'io.prometheus:simpleclient:0.5.0'
+  compile 'io.prometheus:simpleclient_httpserver:0.5.0'
+  compile 'io.prometheus:simpleclient_log4j2:0.5.0'
+  compile 'org.mongodb:mongodb-driver:3.8.2'
+}
+
+compileJava.options.encoding = 'UTF-8'

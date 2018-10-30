@@ -1,0 +1,5 @@
+/*
+ * FTNL settings.gradle file
+ */
+
+rootProject.name = 'Pegasus'
